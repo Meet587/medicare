@@ -38,7 +38,6 @@ const RegisterForm = ({ user }: { user: User; }) => {
     // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof PatientFormValidation>) {
         setIsLoading(true);
-        console.log("firstfirstfirstfirstfirst");
         let formData;
 
         if (values.identificationDocument && values.identificationDocument.length > 0) {
@@ -48,7 +47,6 @@ const RegisterForm = ({ user }: { user: User; }) => {
             formData = new FormData();
             formData.append('blobFile', blobFile);
             formData.append('fileName', values.identificationDocument[0].name);
-            console.log("blobFile", blobFile.size);
         }
         try {
             const patientData = {
@@ -61,7 +59,7 @@ const RegisterForm = ({ user }: { user: User; }) => {
             //@ts-ignore
             const patient = await registerPatient(patientData);
 
-            if (patient) router.push(`/patient/${user.$id}/new-appoinment`);
+            if (patient) router.push(`/patients/${user.$id}/new-appoinment`);
 
         } catch (error) {
             console.log("error in onSubmit", error);
